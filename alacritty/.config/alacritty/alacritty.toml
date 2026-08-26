@@ -1,0 +1,61 @@
+# ~/.config/alacritty/alacritty.toml
+
+# ----- Window -----
+[window]
+opacity = 1 
+padding.x = 8
+padding.y = 8
+startup_mode = "Maximized"
+
+# ----- Font -----
+[font]
+size = 13.0
+
+[font.normal]
+family = "JetBrainsMono NF"
+
+[font.bold]
+family = "JetBrainsMono NF"
+
+[font.italic]
+family = "JetBrainsMono NF"
+
+# ----- Colors (Dark theme คล้าย Terminal.app ที่ใช้อยู่) -----
+[colors.primary]
+background = "#1a1a2e"
+foreground = "#e0e0e0"
+
+[colors.cursor]
+text = "#1a1a2e"
+cursor = "#e0e0e0"
+
+[colors.normal]
+black   = "#1a1a2e"
+red     = "#ff6b6b"
+green   = "#98c379"
+yellow  = "#e5c07b"
+blue    = "#61afef"
+magenta = "#c678dd"
+cyan    = "#56b6c2"
+white   = "#e0e0e0"
+
+[colors.bright]
+black   = "#5c6370"
+red     = "#ff8787"
+green   = "#b5e890"
+yellow  = "#f0d590"
+blue    = "#7cc5ff"
+magenta = "#d898e8"
+cyan    = "#73d0db"
+white   = "#ffffff"
+
+# ----- Shell: เปิด tmux อัตโนมัติ -----
+[terminal.shell]
+program = "/bin/zsh"
+args = ["-l", "-c", "tmux new-session -A -s main"]
+
+# ----- Keyboard -----
+[keyboard]
+# Option key ทำงานเป็น Alt (สำคัญสำหรับ tmux keybinding)
+# bindings = []  # ใช้ default ก่อน ปรับทีหลังได้
+
