@@ -98,6 +98,7 @@ Config: [`tmux/.config/tmux/`](tmux/.config/tmux/) (`tmux.conf` + `macos.conf` �
 - `prefix+y` opens [Claude Code](https://github.com/anthropics/claude-code) in a floating popup, running in its own tmux session per working directory
 - Vi-style copy mode, `y` copies straight to `pbcopy`
 - `prefix+r` reloads the config
+- `automatic-rename off` + `allow-rename off` — Claude Code (and other CLIs) set the terminal title to a running task summary, which tmux's default automatic-rename would otherwise pick up and use to silently overwrite manually-set window names
 
 **Look — [catppuccin/tmux](https://github.com/catppuccin/tmux) via [TPM](https://github.com/tmux-plugins/tpm), rounded pills, ported from [omerxx/dotfiles](https://github.com/omerxx/dotfiles).** Everything before this was a hand-written status bar (colored `#[fg=...bg=...]` strings) that went through several rounds of real bugs — a Solarized palette that clashed with WezTerm's then-One-Dark background, a background shade that drifted a step out of sync with WezTerm's, block text with too little contrast against its own fill color, and a background-reset bug where one block's color bled into whatever followed it. Hand-crafting that string is fragile — replaced the whole thing with an actual plugin instead of continuing to patch it by hand:
 
