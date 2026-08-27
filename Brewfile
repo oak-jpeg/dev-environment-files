@@ -10,6 +10,8 @@ brew "openssl@3"
 brew "git"
 # Extendable version manager with support for Ruby, Node.js, Erlang & more
 brew "asdf"
+# Spell checker with better logic than ispell
+brew "aspell"
 # Automatic configure script builder
 brew "autoconf"
 # Regular expressions library
