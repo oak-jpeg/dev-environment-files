@@ -8,7 +8,7 @@ set -euo pipefail
 DOTFILES="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$DOTFILES"
 
-STOW_PACKAGES=(zsh fish tmux nvim ghostty alacritty wezterm lazygit git)
+STOW_PACKAGES=(zsh fish tmux nvim wezterm lazygit git)
 
 echo "==> Installing Homebrew packages from Brewfile"
 if ! command -v brew &>/dev/null; then

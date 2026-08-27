@@ -90,13 +90,8 @@ brew "zsh-autosuggestions"
 brew "zsh-syntax-highlighting"
 # High-performance, schema-free, document-oriented database
 brew "mongodb/brew/mongodb-community@8.0"
-# GPU-accelerated terminal emulator
-cask "alacritty"
 cask "font-jetbrains-mono-nerd-font"
 cask "font-meslo-lg-nerd-font"
-cask "font-plemol-jp-nf"
-# Terminal emulator that uses platform-native UI and GPU acceleration
-cask "ghostty"
 # GPU-accelerated cross-platform terminal emulator and multiplexer
 cask "wezterm"
 vscode "aaron-bond.better-comments"

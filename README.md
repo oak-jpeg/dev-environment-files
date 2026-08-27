@@ -1,6 +1,6 @@
 # My Dev Environment Files 🚀
 
-Personal macOS dev environment configs — originally inspired by [josean-dev/dev-environment-files](https://github.com/josean-dev/dev-environment-files), now largely restyled after [craftzdog/dotfiles](https://github.com/craftzdog/dotfiles) (Solarized everywhere, Ghostty, fish+Tide, LazyVim). Managed with [GNU Stow](https://www.gnu.org/software/stow/).
+Personal macOS dev environment configs — originally inspired by [josean-dev/dev-environment-files](https://github.com/josean-dev/dev-environment-files), now largely restyled after [craftzdog/dotfiles](https://github.com/craftzdog/dotfiles) (Solarized everywhere, fish+Tide, LazyVim). Managed with [GNU Stow](https://www.gnu.org/software/stow/).
 
 **Note:** these are tuned for my own machine and workflow. Feel free to borrow ideas, but read before blindly running anything.
 
@@ -22,18 +22,18 @@ To (re)link a single package by hand:
 stow --target="$HOME" fish
 ```
 
-## Terminal — Ghostty
+## Terminal — WezTerm
 
-Config: [`ghostty/.config/ghostty/config`](ghostty/.config/ghostty/config)
+Config: [`wezterm/.wezterm.lua`](wezterm/.wezterm.lua)
 
-Theme `Solarized Dark Patched`, `PlemolJP Console NF` font, 90% background opacity with blur, block cursor with blink. Ported straight from craftzdog's config — the only thing intentionally left out is his `alt+left`/`alt+right` keybind unbinds, since that's a shortkey change and out of scope here.
+One Dark colors, `JetBrainsMono NF` font, tab bar disabled in favor of tmux's status bar, `Cmd+Enter` toggles fullscreen, `Cmd+W` closes the current pane. Opens straight into a tmux session on launch.
 
-Kept around for reference (no longer the default): [`wezterm/.wezterm.lua`](wezterm/.wezterm.lua), [`alacritty/.config/alacritty/alacritty.toml`](alacritty/.config/alacritty/alacritty.toml) — both auto-launch a tmux session on open; Ghostty currently doesn't (matching craftzdog, who starts tmux manually). Add a `command` line to `ghostty/.config/ghostty/config` if you want that back.
+Ghostty and Alacritty were both tried at different points (see git history) but have been removed — sticking with WezTerm as the one terminal to configure and keep working.
 
 ### Requires
 
-- [Ghostty](https://ghostty.org/)
-- `PlemolJP Console NF` (`font-plemol-jp-nf` in the Brewfile)
+- [WezTerm](https://wezfurlong.org/wezterm/)
+- `JetBrainsMono NF` (`font-jetbrains-mono-nerd-font` in the Brewfile)
 
 ## Shell setup (macOS & Linux)
 
@@ -55,13 +55,13 @@ Fish config: [`fish/.config/fish`](fish/.config/fish)
 
 Not ported: craftzdog's `mise` (would double up with pyenv/nvm.fish, which are already wired and tested here) and his fish `theme_*` variables (leftover config for a different, pre-Tide fish theme — inert either way).
 
-**⚠️ Open issue — Tide renders a permanently blank/near-empty prompt on this machine, unresolved.** In real use in Ghostty, the `pwd`/`git` segments never render (only `character` and the right-side items like `context`/`cmd_duration` show up), even at a full-width terminal. What's been ruled out so far:
+**⚠️ Open issue — Tide renders a permanently blank/near-empty prompt on this machine, unresolved.** In real use (originally observed in Ghostty, since removed from this setup — untested in WezTerm), the `pwd`/`git` segments never render (only `character` and the right-side items like `context`/`cmd_duration` show up), even at a full-width terminal. What's been ruled out so far:
 
 - A real, separate upstream bug **was** found and fixed: `set -U $prompt_var` in Tide's `fish_prompt.fish` spuriously fires the `--on-variable` repaint handler on first render, making the async job that computes prompt content think a repaint is already pending and skip itself ([ilancosman/tide#666](https://github.com/IlanCosman/tide/pull/666), unmerged). `install.sh` patches this automatically right after `fisher update` (which would otherwise silently reintroduce it) — but applying it alone did **not** fix the blank prompt, so something else is also going on.
 - Not caused by `tide configure --auto`'s known blank-prompt issues — going through the interactive wizard start to finish changed nothing.
 - Not a narrow-terminal issue — `$COLUMNS` reports 215.
 - Not `tide_prompt_transient_enabled` getting stuck in its collapsed state — disabling it made no difference.
-- Basic rendering (`echo hello`, the `tide configure` wizard's own colored preview) works fine in Ghostty, so it isn't a font/color/terminal-capability problem in general.
+- Basic rendering (`echo hello`, the `tide configure` wizard's own colored preview) worked fine, so it isn't a font/color/terminal-capability problem in general.
 
 Whoever picks this back up next: the leftover `_tide_repaint` patch and universal-variable cleanup in `install.sh` should stay (they fix a real bug, just not this whole symptom) — the next step is probably to trace why `_tide_pwd`'s output specifically never makes it into `$prompt_var` in a real interactive session, when it does under `script`/`expect`-simulated ptys. Consider filing an upstream issue with a minimal repro if it's not already covered by an open one.
 
@@ -164,9 +164,7 @@ dev-environment-files/
 ├── zsh/.zshrc, .zprofile, .p10k.zsh      (current default)
 ├── tmux/.config/tmux/                    (tmux.conf, theme.conf, statusline.conf, macos.conf)
 ├── nvim/.config/nvim/                    (full LazyVim config)
-├── ghostty/.config/ghostty/config        (default terminal)
-├── alacritty/.config/alacritty/alacritty.toml   (legacy)
-├── wezterm/.wezterm.lua                  (legacy)
+├── wezterm/.wezterm.lua                  (default terminal)
 ├── lazygit/.config/lazygit/config.yml
 ├── git/.gitconfig, .config/git/ignore, .config/git/delta.gitconfig
 ├── Brewfile
