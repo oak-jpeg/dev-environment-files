@@ -9,6 +9,30 @@
 [pager]
 	branch = false
 [core]
-	editor = nano
+	editor = nvim
+	ignorecase = false
+	pager = delta
+[push]
+	default = simple
+[color]
+	status = auto
+	diff = auto
+	branch = auto
+	interactive = auto
+	grep = auto
+	ui = auto
+[diff]
+	tool = nvimdiff
+[difftool "nvimdiff"]
+	cmd = nvim -d \"$LOCAL\" \"$REMOTE\"
+[mergetool "nvimdiff"]
+	cmd = nvim -d \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+[ghq]
+	root = ~/Developments/.ghq
 [pull]
-	rebase = true
+	rebase = false
+[init]
+	defaultBranch = main
+[include]
+	path = ~/.config/git/delta.gitconfig

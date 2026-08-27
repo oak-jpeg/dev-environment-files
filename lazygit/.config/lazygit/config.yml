@@ -10,3 +10,5 @@ customCommands:
     description: "AI Commit with Claude"
     loadingText: "Claude is writing commit message..."
     subprocess: true
+gui:
+  mouseEvents: false

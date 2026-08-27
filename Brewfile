@@ -12,6 +12,10 @@ brew "git"
 brew "asdf"
 # Automatic configure script builder
 brew "autoconf"
+# Regular expressions library
+brew "oniguruma"
+# Clone of cat(1) with syntax highlighting and Git integration
+brew "bat"
 # Parser generator
 brew "bison"
 # Freely available high-quality data compressor
@@ -30,6 +34,8 @@ brew "fzf"
 brew "gh"
 # Remote repository management made easy
 brew "ghq"
+# Syntax-highlighting pager for git and diff output
+brew "git-delta"
 # Image manipulation library
 brew "jpeg"
 # Modern load testing tool, using Go and JavaScript
@@ -42,6 +48,8 @@ brew "readline"
 brew "libxml2"
 # C library for reading, creating, and modifying zip archives
 brew "libzip"
+# Package manager for the Lua programming language
+brew "luarocks"
 # Open-source, cross-platform JavaScript runtime environment
 brew "node"
 # Open source relational database management system
@@ -50,8 +58,6 @@ brew "mysql"
 brew "neovim"
 # Manage multiple Node.js versions
 brew "nvm"
-# Regular expressions library
-brew "oniguruma"
 # Brew & manage PHP versions in pure PHP at HOME
 brew "phpbrew"
 # Package compiler and linker metadata toolkit
@@ -64,6 +70,8 @@ brew "powerlevel10k"
 brew "pyenv"
 # Generate C-based recognizers from regular expressions
 brew "re2c"
+# Reattach process (e.g., tmux) to background
+brew "reattach-to-user-namespace"
 # Search tool like grep and The Silver Searcher
 brew "ripgrep"
 # Organize software neatly under a single directory tree (e.g. /usr/local)
@@ -86,6 +94,9 @@ brew "mongodb/brew/mongodb-community@8.0"
 cask "alacritty"
 cask "font-jetbrains-mono-nerd-font"
 cask "font-meslo-lg-nerd-font"
+cask "font-plemol-jp-nf"
+# Terminal emulator that uses platform-native UI and GPU acceleration
+cask "ghostty"
 # GPU-accelerated cross-platform terminal emulator and multiplexer
 cask "wezterm"
 vscode "aaron-bond.better-comments"

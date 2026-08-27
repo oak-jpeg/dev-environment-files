@@ -1,6 +1,28 @@
 set fish_greeting ""
 set -gx EDITOR nvim
 
+# ---- aliases (ported from craftzdog/dotfiles config.fish + config-osx.fish) ----
+alias ls "ls -p -G"
+alias la "ls -A"
+alias g git
+alias c claude
+alias claude-yolo "claude --dangerously-skip-permissions"
+command -q nvim && alias vim nvim
+
+if type -q eza
+    alias ll "eza -l -g --icons"
+else
+    alias ll "ls -l"
+end
+alias lla "ll -A"
+
+# ---- PATH ----
+fish_add_path $HOME/bin
+fish_add_path $HOME/.local/bin
+set -gx GOPATH $HOME/go
+fish_add_path $GOPATH/bin
+set -gx PATH node_modules/.bin $PATH
+
 if status is-interactive
     # Homebrew's /opt/homebrew/bin is already on PATH via /etc/paths.d/homebrew
     # (fish runs path_helper as a login shell) — no brew shellenv needed here,
@@ -11,17 +33,10 @@ if status is-interactive
     fish_add_path $PYENV_ROOT/bin
     pyenv init - fish | source
 
-    # ---- Go tools (gopls, staticcheck, ...) ----
-    fish_add_path $HOME/go/bin
-
-    # ---- fzf keybindings (Ctrl-R history, Ctrl-T files, Alt-C cd) ----
+    # ---- fzf (Ctrl-R history, Ctrl-T files, Alt-C cd) ----
     fzf_configure_bindings
-
-    # ---- ls with icons ----
-    alias ls="eza --icons --group-directories-first"
-    alias ll="eza -l --icons --group-directories-first"
-    alias la="eza -la --icons --group-directories-first"
-    command -q nvim && alias vim nvim
+    set -g FZF_PREVIEW_FILE_CMD "bat --style=numbers --color=always --line-range :500"
+    set -g FZF_LEGACY_KEYBINDINGS 0
 
     # ---- open lazygit ----
     bind \cg 'lazygit; commandline -f repaint'

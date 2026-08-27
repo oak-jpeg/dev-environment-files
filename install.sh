@@ -8,16 +8,13 @@ set -euo pipefail
 DOTFILES="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$DOTFILES"
 
-STOW_PACKAGES=(zsh fish tmux nvim alacritty wezterm lazygit git)
+STOW_PACKAGES=(zsh fish tmux nvim ghostty alacritty wezterm lazygit git)
 
 echo "==> Installing Homebrew packages from Brewfile"
 if ! command -v brew &>/dev/null; then
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 brew bundle --file="$DOTFILES/Brewfile"
-
-echo "==> Fetching nvim config submodule"
-git submodule update --init --recursive
 
 echo "==> Installing Oh My Zsh (if missing)"
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
@@ -48,5 +45,11 @@ echo "==> Syncing fish plugins declared in fish_plugins"
 if [ -n "$FISH_BIN" ]; then
   "$FISH_BIN" -c 'fisher update'
 fi
+
+echo "==> Bootstrapping Neovim plugins (lazy.nvim) and LSP/formatter tools (mason)"
+nvim --headless "+Lazy! sync" +qa || true
+nvim --headless "+Lazy load mason.nvim" \
+  -c "MasonInstall codelldb luacheck prettier selene shellcheck shfmt stylua tailwindcss-language-server typescript-language-server css-lsp" \
+  -c "sleep 120" -c "qa" || true
 
 echo "==> Done. Restart your terminal (or 'exec fish' / 'exec zsh') to pick up the new config."
