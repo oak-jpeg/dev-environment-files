@@ -37,10 +37,10 @@ config.colors = {
 config.bold_brightens_ansi_colors = false
 
 -- ===== Shell: เปิด tmux อัตโนมัติ =====
--- หน้าต่างแรกตอนเปิด WezTerm ใหม่ทั้งโปรแกรม -> attach เข้า session "main" เดิม (ค้างข้ามการปิดเปิดแอพ)
+-- หน้าต่างแรกตอนเปิด WezTerm ใหม่ทั้งโปรแกรม -> attach เข้า session "session" เดิม (ค้างข้ามการปิดเปิดแอพ)
 wezterm.on("gui-startup", function(cmd)
 	wezterm.mux.spawn_window(cmd or {
-		args = { "/bin/zsh", "-l", "-c", "tmux new-session -A -s main" },
+		args = { "/bin/zsh", "-l", "-c", "tmux new-session -A -s session" },
 	})
 end)
 
