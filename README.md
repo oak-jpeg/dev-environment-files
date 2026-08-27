@@ -26,9 +26,9 @@ stow --target="$HOME" fish
 
 Config: [`wezterm/.wezterm.lua`](wezterm/.wezterm.lua)
 
-One Dark colors, `JetBrainsMono NF` font, tab bar disabled in favor of tmux's status bar, `Cmd+Enter` toggles fullscreen, `Cmd+W` closes the current pane.
+One Dark colors, `JetBrainsMono NF` font, `Cmd+Enter` toggles fullscreen, `Cmd+W` closes the current pane. Tab bar is on but auto-hides when there's only one tab (`hide_tab_bar_if_only_one_tab`) — switch tabs with `Cmd+1`–`Cmd+9` or `Cmd+Shift+[` / `Cmd+Shift+]`.
 
-Tmux session handling: the **first window** when WezTerm itself launches (via a `gui-startup` handler) attaches to the persistent `main` session — same one every time, survives quitting and reopening WezTerm. **New tabs/windows opened afterward** (`Cmd+T`, `Cmd+N`) each get their own fresh, independent tmux session (`wezterm-<pid>`) instead of also attaching to `main` — otherwise every new tab just mirrored the same session (switch a window in one, all of them jump too), which is exactly what tmux does when two clients attach to the same session name.
+Tmux session handling: the **first window** when WezTerm itself launches (via a `gui-startup` handler) attaches to the persistent `main` session — same one every time, survives quitting and reopening WezTerm. **New tabs/windows opened afterward** (`Cmd+T`, `Cmd+N`) each get their own fresh, independent tmux session (`wezterm-<pid>`) instead of also attaching to `main` — otherwise every new tab just mirrored the same session (switch a window in one, all of them jump too), which is exactly what tmux does when two clients attach to the same session name. The tab bar had to come back on for this to be usable — with every tab silently mirroring `main` before, there was nothing to distinguish, but now they're genuinely different sessions, so you need a way to see and pick between them.
 
 Ghostty and Alacritty were both tried at different points (see git history) but have been removed — sticking with WezTerm as the one terminal to configure and keep working.
 

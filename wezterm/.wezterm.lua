@@ -18,8 +18,11 @@ config.window_padding = {
 config.macos_window_background_blur = 0
 config.native_macos_fullscreen_mode = true
 
--- ===== Tab bar (คล้าย tmux status bar) =====
-config.enable_tab_bar = false -- ปิดเพราะใช้ tmux แทน
+-- ===== Tab bar =====
+-- เปิดไว้ เพราะตอนนี้แต่ละ tab เป็น tmux session แยกอิสระกัน (ไม่ได้ mirror กันแบบเดิม)
+-- ต้องเห็นว่ามีกี่ tab เปิดอยู่
+config.enable_tab_bar = true
+config.hide_tab_bar_if_only_one_tab = true
 config.window_close_confirmation = "NeverPrompt"
 
 -- ===== Colors (One Dark theme) =====
