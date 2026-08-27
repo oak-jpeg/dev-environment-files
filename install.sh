@@ -31,7 +31,10 @@ if [ -n "$FISH_BIN" ]; then
     end
   '
   grep -qxF "$FISH_BIN" /etc/shells || echo "  NOTE: run: echo $FISH_BIN | sudo tee -a /etc/shells"
-  echo "  NOTE: set as default shell with: chsh -s $FISH_BIN"
+  echo "  NOTE: fish is set up but NOT switched to as your default shell here —"
+  echo "        there's an open Tide prompt-rendering bug, see README. Zsh stays"
+  echo "        the default until that's resolved; switch manually with:"
+  echo "        chsh -s $FISH_BIN"
 fi
 
 echo "==> Symlinking dotfiles with GNU Stow"

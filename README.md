@@ -37,7 +37,9 @@ Kept around for reference (no longer the default): [`wezterm/.wezterm.lua`](wezt
 
 ## Shell setup (macOS & Linux)
 
-Default shell: [Fish](https://fishshell.com/) — config: [`fish/.config/fish`](fish/.config/fish)
+**Current default: Zsh** (see below) — Fish is fully installed and configured but sits on the sidelines for now because of an unresolved Tide rendering bug (see the callout further down). Switch to it once that's sorted: `chsh -s $(which fish)`.
+
+Fish config: [`fish/.config/fish`](fish/.config/fish)
 
 - [Fisher](https://github.com/jorgebucaran/fisher) — plugin manager, plugin list tracked in [`fish_plugins`](fish/.config/fish/fish_plugins)
 - [Tide](https://github.com/IlanCosman/tide) — prompt theme (Solarized git-segment colors in `conf.d/tide.fish`, ported from craftzdog)
@@ -53,9 +55,19 @@ Default shell: [Fish](https://fishshell.com/) — config: [`fish/.config/fish`](
 
 Not ported: craftzdog's `mise` (would double up with pyenv/nvm.fish, which are already wired and tested here) and his fish `theme_*` variables (leftover config for a different, pre-Tide fish theme — inert either way).
 
-**Known upstream bug — Tide can render a permanently blank prompt.** `set -U $prompt_var` in Tide's `fish_prompt.fish` spuriously fires the `--on-variable` repaint handler on the very first render, which makes the async job that actually computes the prompt content think a repaint is already pending and skip itself — leaving the prompt empty forever (not just on the first frame). This is a real, currently-unmerged upstream issue ([ilancosman/tide#666](https://github.com/IlanCosman/tide/pull/666)); `install.sh` patches it automatically right after `fisher update` (which would otherwise silently re-introduce it by overwriting the fix with the vendored file). If you ever run `fisher update` by hand and the prompt goes blank again, re-run that step from `install.sh` or just re-apply the one-line fix from that PR to `~/.config/fish/functions/fish_prompt.fish`.
+**⚠️ Open issue — Tide renders a permanently blank/near-empty prompt on this machine, unresolved.** In real use in Ghostty, the `pwd`/`git` segments never render (only `character` and the right-side items like `context`/`cmd_duration` show up), even at a full-width terminal. What's been ruled out so far:
 
-Legacy config kept around: [Zsh + Oh My Zsh + Powerlevel10k](zsh/.zshrc) ([`zsh/.zprofile`](zsh/.zprofile), [`zsh/.p10k.zsh`](zsh/.p10k.zsh)). Still installed and usable (`chsh -s $(which zsh)`), just no longer the default.
+- A real, separate upstream bug **was** found and fixed: `set -U $prompt_var` in Tide's `fish_prompt.fish` spuriously fires the `--on-variable` repaint handler on first render, making the async job that computes prompt content think a repaint is already pending and skip itself ([ilancosman/tide#666](https://github.com/IlanCosman/tide/pull/666), unmerged). `install.sh` patches this automatically right after `fisher update` (which would otherwise silently reintroduce it) — but applying it alone did **not** fix the blank prompt, so something else is also going on.
+- Not caused by `tide configure --auto`'s known blank-prompt issues — going through the interactive wizard start to finish changed nothing.
+- Not a narrow-terminal issue — `$COLUMNS` reports 215.
+- Not `tide_prompt_transient_enabled` getting stuck in its collapsed state — disabling it made no difference.
+- Basic rendering (`echo hello`, the `tide configure` wizard's own colored preview) works fine in Ghostty, so it isn't a font/color/terminal-capability problem in general.
+
+Whoever picks this back up next: the leftover `_tide_repaint` patch and universal-variable cleanup in `install.sh` should stay (they fix a real bug, just not this whole symptom) — the next step is probably to trace why `_tide_pwd`'s output specifically never makes it into `$prompt_var` in a real interactive session, when it does under `script`/`expect`-simulated ptys. Consider filing an upstream issue with a minimal repro if it's not already covered by an open one.
+
+## Shell — Zsh + Oh My Zsh + Powerlevel10k (current default)
+
+Config: [`zsh/.zshrc`](zsh/.zshrc), [`zsh/.zprofile`](zsh/.zprofile), [`zsh/.p10k.zsh`](zsh/.p10k.zsh) — unchanged from before this whole fish/Tide detour. `chsh -s $(which zsh)` to switch back if you're on fish.
 
 ### Switching your login shell
 
@@ -148,8 +160,8 @@ Each top-level directory is a Stow "package" mirroring the `$HOME` paths it shou
 
 ```
 dev-environment-files/
-├── fish/.config/fish/                    (default shell)
-├── zsh/.zshrc, .zprofile, .p10k.zsh      (legacy, still usable)
+├── fish/.config/fish/                    (installed, not default — open Tide bug, see above)
+├── zsh/.zshrc, .zprofile, .p10k.zsh      (current default)
 ├── tmux/.config/tmux/                    (tmux.conf, theme.conf, statusline.conf, macos.conf)
 ├── nvim/.config/nvim/                    (full LazyVim config)
 ├── ghostty/.config/ghostty/config        (default terminal)
