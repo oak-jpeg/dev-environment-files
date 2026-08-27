@@ -30,7 +30,11 @@ config.window_close_confirmation = "NeverPrompt"
 config.color_scheme = "Solarized Dark - Patched"
 config.colors = {
 	background = "#031219", -- override ให้เข้มกว่า default ของ scheme เล็กน้อย
+	foreground = "#eae3cb", -- default ของ scheme (#708284) มืดเกินไป อ่านยากโดยเฉพาะ remote SSH ที่ไม่มีสีกำหนดเอง
 }
+-- ปิดการ "ใช้สี bright แทนเมื่อ bold" — bright ของ scheme นี้บางสี (เช่นฟ้า) มืดกว่าสีปกติซะอีก
+-- ทำให้ directory name ที่ ls แสดงแบบ bold+blue (เช่นตอน ssh เข้าเครื่องอื่น) จมหายไปกับพื้นหลัง
+config.bold_brightens_ansi_colors = false
 
 -- ===== Shell: เปิด tmux อัตโนมัติ =====
 -- หน้าต่างแรกตอนเปิด WezTerm ใหม่ทั้งโปรแกรม -> attach เข้า session "main" เดิม (ค้างข้ามการปิดเปิดแอพ)
