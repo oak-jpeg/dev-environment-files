@@ -101,7 +101,9 @@ Config: [`tmux/.config/tmux/`](tmux/.config/tmux/) (`tmux.conf` + `theme.conf` +
 
 ## Neovim
 
-Config: [`nvim/.config/nvim`](nvim/.config/nvim) — full [LazyVim](https://www.lazyvim.org/) distro config, ported wholesale from [craftzdog/dotfiles](https://github.com/craftzdog/dotfiles/tree/master/.config/nvim) (this replaces what used to be a submodule pointing at a kickstart.nvim fork). Colorscheme: [solarized-osaka.nvim](https://github.com/craftzdog/solarized-osaka.nvim). LSP/formatting extras: eslint, prettier, typescript, json, rust, tailwind.
+Config: [`nvim/.config/nvim`](nvim/.config/nvim) — full [LazyVim](https://www.lazyvim.org/) distro config, ported wholesale from [craftzdog/dotfiles](https://github.com/craftzdog/dotfiles/tree/master/.config/nvim) (this replaces what used to be a submodule pointing at a kickstart.nvim fork). LSP/formatting extras: eslint, prettier, typescript, json, rust, tailwind.
+
+**Colorscheme:** default is [solarized-osaka.nvim](https://github.com/craftzdog/solarized-osaka.nvim) (craftzdog's own theme, itself built on top of Solarized Dark + [tokyonight.nvim](https://github.com/folke/tokyonight.nvim) — see [`lua/plugins/colorscheme.lua`](nvim/.config/nvim/lua/plugins/colorscheme.lua)). `tokyonight.nvim` (style `night`) is also installed as a switchable option — try it with `:colorscheme tokyonight-night`, and back with `:colorscheme solarized-osaka`. Both run `transparent = true`.
 
 **The one file NOT ported: [`lua/config/keymaps.lua`](nvim/.config/nvim/lua/config/keymaps.lua)** — that's kept as my own (window nav `Ctrl-h/j/k/l`, `<leader>q`/`<leader>w`, `Esc` clears search, `J`/`K` move selected lines in visual mode). Everything else — `options.lua`, `autocmds.lua`, `lazy.lua`, the `craftzdog/*.lua` utility modules, and every file under `lua/plugins/` (including their bundled keymaps for telescope, git.nvim, close-buffers, etc., since those are inseparable from the plugins themselves) — is his, as-is.
 
