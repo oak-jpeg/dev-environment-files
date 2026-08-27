@@ -22,8 +22,14 @@ brew "curl"
 brew "eza"
 # Simple, fast and user-friendly alternative to find
 brew "fd"
+# User-friendly command-line shell for UNIX-like operating systems
+brew "fish"
+# Command-line fuzzy finder written in Go
+brew "fzf"
 # GitHub command-line tool
 brew "gh"
+# Remote repository management made easy
+brew "ghq"
 # Image manipulation library
 brew "jpeg"
 # Modern load testing tool, using Go and JavaScript

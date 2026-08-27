@@ -12,7 +12,7 @@ cd ~/dev-environment-files
 ./install.sh
 ```
 
-`install.sh` installs Homebrew + everything in the `Brewfile`, pulls Oh My Zsh, fetches the neovim config submodule, then uses `stow` to symlink each package below into `$HOME`.
+`install.sh` installs Homebrew + everything in the `Brewfile`, pulls Oh My Zsh, fetches the neovim config submodule, bootstraps Fisher and syncs the fish plugins in `fish_plugins`, then uses `stow` to symlink each package below into `$HOME`. It prints the `chsh` command to switch your login shell to fish — run that part yourself (needs interactive auth).
 
 To (re)link a single package by hand:
 
@@ -33,16 +33,31 @@ Also included: [`alacritty/.config/alacritty/alacritty.toml`](alacritty/.config/
 - [WezTerm](https://wezfurlong.org/wezterm/) or [Alacritty](https://alacritty.org/)
 - A Nerd Font (`font-jetbrains-mono-nerd-font` / `font-meslo-lg-nerd-font`, both in the Brewfile)
 
-## Shell — Zsh + Oh My Zsh + Powerlevel10k
+## Shell setup (macOS & Linux)
 
-Config: [`zsh/.zshrc`](zsh/.zshrc), [`zsh/.zprofile`](zsh/.zprofile), [`zsh/.p10k.zsh`](zsh/.p10k.zsh)
+Default shell: [Fish](https://fishshell.com/) — config: [`fish/.config/fish`](fish/.config/fish)
 
-- Theme: `powerlevel10k`
-- Plugins: `git`, `zsh-autosuggestions`, `zsh-syntax-highlighting`, `command-not-found`, `colored-man-pages`
-- `nvm` + `pyenv` for Node/Python version management
-- `eza` aliased over `ls`/`ll`/`la` with icons
+- [Fisher](https://github.com/jorgebucaran/fisher) — plugin manager, plugin list tracked in [`fish_plugins`](fish/.config/fish/fish_plugins)
+- [Tide](https://github.com/IlanCosman/tide) — prompt theme (git-segment colors tuned in `conf.d/tide.fish`)
+- [z](https://github.com/jethrokuan/z) — directory jumping
+- [fzf.fish](https://github.com/PatrickF1/fzf.fish) — `Ctrl-R` history / `Ctrl-T` files / `Alt-C` cd, backed by [fzf](https://github.com/junegunn/fzf)
+- [nvm.fish](https://github.com/jorgebucaran/nvm.fish) — Node version manager (auto-activates the pinned default on shell start)
+- [pyenv](https://github.com/pyenv/pyenv) — Python version management
+- [eza](https://github.com/eza-community/eza) — `ls`/`ll`/`la` replacement with icons
+- [ghq](https://github.com/x-motemen/ghq) — local git repo organizer
 - `Ctrl-g` opens `lazygit` directly
 - Aliases to start/stop local Postgres, MongoDB, and MySQL services via `brew services`
+
+Legacy config kept around: [Zsh + Oh My Zsh + Powerlevel10k](zsh/.zshrc) ([`zsh/.zprofile`](zsh/.zprofile), [`zsh/.p10k.zsh`](zsh/.p10k.zsh)) — theme `powerlevel10k`, plugins `git`/`zsh-autosuggestions`/`zsh-syntax-highlighting`/`command-not-found`/`colored-man-pages`. Still installed and usable (`chsh -s $(which zsh)`), just no longer the default.
+
+### Switching your login shell
+
+```bash
+echo $(which fish) | sudo tee -a /etc/shells   # if fish isn't listed yet
+chsh -s $(which fish)
+```
+
+(`chsh` needs your account password interactively — run it yourself in a real terminal, not from a script.)
 
 ## Tmux
 
@@ -53,6 +68,8 @@ Config: [`tmux/.tmux.conf`](tmux/.tmux.conf)
 - Mouse support on, 1-indexed windows/panes
 - `|` / `-` split panes (instead of `%` / `"`), keeping the current pane's path
 - `Alt+Arrow` to move between panes without the prefix, `prefix+Shift+Arrow` to resize
+- `Ctrl+Shift+Arrow` (no prefix) swaps the current window's position left/right
+- `prefix+y` opens [Claude Code](https://github.com/anthropics/claude-code) in a floating popup, running in its own tmux session per working directory (session persists in the background when the popup closes)
 - Vi-style copy mode, `y` copies straight to `pbcopy`
 - `prefix+r` reloads the config
 
@@ -103,7 +120,8 @@ Each top-level directory is a Stow "package" mirroring the `$HOME` paths it shou
 
 ```
 dev-environment-files/
-├── zsh/.zshrc, .zprofile, .p10k.zsh
+├── fish/.config/fish/               (default shell)
+├── zsh/.zshrc, .zprofile, .p10k.zsh (legacy, still usable)
 ├── tmux/.tmux.conf
 ├── nvim/.config/nvim/          (submodule)
 ├── alacritty/.config/alacritty/alacritty.toml
