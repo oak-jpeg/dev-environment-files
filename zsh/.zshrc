@@ -150,3 +150,6 @@ alias mongostart='brew services start mongodb-community@8.0'
 alias mongostop='brew services stop mongodb-community@8.0'
 alias mysqlstart='brew services start mysql'
 alias mysqlstop='brew services stop mysql'
+
+# ---- system info banner ----
+command -v fastfetch >/dev/null && fastfetch

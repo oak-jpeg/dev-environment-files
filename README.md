@@ -70,7 +70,9 @@ Whoever picks this back up next: the leftover `_tide_repaint` patch and universa
 
 ## Shell — Zsh + Oh My Zsh + Powerlevel10k (current default)
 
-Config: [`zsh/.zshrc`](zsh/.zshrc), [`zsh/.zprofile`](zsh/.zprofile), [`zsh/.p10k.zsh`](zsh/.p10k.zsh) — unchanged from before this whole fish/Tide detour. `chsh -s $(which zsh)` to switch back if you're on fish.
+Config: [`zsh/.zshrc`](zsh/.zshrc), [`zsh/.zprofile`](zsh/.zprofile), [`zsh/.p10k.zsh`](zsh/.p10k.zsh) — otherwise unchanged from before this whole fish/Tide detour. `chsh -s $(which zsh)` to switch back if you're on fish.
+
+Since **this is the shell tmux actually spawns new panes/windows with** (fish isn't the login shell yet — see the open issue above), the fastfetch banner call (see the Shell setup section above) is duplicated here too, at the very end of the file (after `source ~/.p10k.zsh`, so it doesn't trip Powerlevel10k's instant-prompt console-output check). Forgetting this the first time round meant `Ctrl-a c` (tmux new window) showed nothing, since it spawns zsh, not fish.
 
 ### Switching your login shell
 
