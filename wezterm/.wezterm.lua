@@ -7,7 +7,9 @@ config.font_size = 13.0
 config.harfbuzz_features = { "calt=1", "clig=1", "liga=1" }
 
 -- ===== Window =====
-config.window_background_opacity = 1.0
+-- opacity + blur ให้ wallpaper desktop โปร่งลอดผ่านมาเบลอๆ (สไตล์ craftzdog)
+config.window_background_opacity = 0.9
+config.macos_window_background_blur = 20
 config.window_decorations = "TITLE|RESIZE"
 config.window_padding = {
 	left = 8,
@@ -15,7 +17,6 @@ config.window_padding = {
 	top = 8,
 	bottom = 8,
 }
-config.macos_window_background_blur = 0
 config.native_macos_fullscreen_mode = true
 
 -- ===== Tab bar =====
@@ -25,36 +26,10 @@ config.enable_tab_bar = true
 config.hide_tab_bar_if_only_one_tab = true
 config.window_close_confirmation = "NeverPrompt"
 
--- ===== Colors (One Dark theme) =====
+-- ===== Colors (Solarized Dark - Patched, ตรงกับที่ craftzdog ใช้ใน Ghostty) =====
+config.color_scheme = "Solarized Dark - Patched"
 config.colors = {
-	foreground = "#e0e0e0",
-	background = "#282c34",
-	cursor_bg = "#e0e0e0",
-	cursor_fg = "#282c34",
-	cursor_border = "#e0e0e0",
-	selection_fg = "#282c34",
-	selection_bg = "#61afef",
-
-	ansi = {
-		"#282c34", -- black
-		"#ff6b6b", -- red
-		"#98c379", -- green
-		"#e5c07b", -- yellow
-		"#61afef", -- blue
-		"#c678dd", -- magenta
-		"#56b6c2", -- cyan
-		"#e0e0e0", -- white
-	},
-	brights = {
-		"#5c6370", -- bright black
-		"#ff8787", -- bright red
-		"#b5e890", -- bright green
-		"#f0d590", -- bright yellow
-		"#7cc5ff", -- bright blue
-		"#d898e8", -- bright magenta
-		"#73d0db", -- bright cyan
-		"#ffffff", -- bright white
-	},
+	background = "#031219", -- override ให้เข้มกว่า default ของ scheme เล็กน้อย
 }
 
 -- ===== Shell: เปิด tmux อัตโนมัติ =====

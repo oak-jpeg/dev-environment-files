@@ -1,6 +1,6 @@
 # My Dev Environment Files 🚀
 
-Personal macOS dev environment configs — originally inspired by [josean-dev/dev-environment-files](https://github.com/josean-dev/dev-environment-files), then partly restyled after [craftzdog/dotfiles](https://github.com/craftzdog/dotfiles) (fish+Tide, LazyVim; tmux stayed on its own original One Dark look — see the Tmux section). Managed with [GNU Stow](https://www.gnu.org/software/stow/).
+Personal macOS dev environment configs — originally inspired by [josean-dev/dev-environment-files](https://github.com/josean-dev/dev-environment-files), then restyled after [craftzdog/dotfiles](https://github.com/craftzdog/dotfiles) (fish+Tide, LazyVim, Solarized Dark). Managed with [GNU Stow](https://www.gnu.org/software/stow/).
 
 **Note:** these are tuned for my own machine and workflow. Feel free to borrow ideas, but read before blindly running anything.
 
@@ -26,7 +26,7 @@ stow --target="$HOME" fish
 
 Config: [`wezterm/.wezterm.lua`](wezterm/.wezterm.lua)
 
-One Dark colors, `JetBrainsMono NF` font, `Cmd+Enter` toggles fullscreen, `Cmd+W` closes the current pane. Tab bar is on but auto-hides when there's only one tab (`hide_tab_bar_if_only_one_tab`) — switch tabs with `Cmd+1`–`Cmd+9` or `Cmd+Shift+[` / `Cmd+Shift+]`.
+Theme is WezTerm's builtin `Solarized Dark - Patched` scheme (same name/palette as the Ghostty config that got tried and removed earlier — this is that same look, just in WezTerm instead), with `background` overridden to `#031219`. `window_background_opacity = 0.9` + `macos_window_background_blur = 20` let the desktop wallpaper show through blurred, matching the look in craftzdog's own screenshots. `JetBrainsMono NF` font, `Cmd+Enter` toggles fullscreen, `Cmd+W` closes the current pane. Tab bar is on but auto-hides when there's only one tab (`hide_tab_bar_if_only_one_tab`) — switch tabs with `Cmd+1`–`Cmd+9` or `Cmd+Shift+[` / `Cmd+Shift+]`.
 
 Tmux session handling: the **first window** when WezTerm itself launches (via a `gui-startup` handler) attaches to the persistent `main` session — same one every time, survives quitting and reopening WezTerm. **New tabs/windows opened afterward** (`Cmd+T`, `Cmd+N`) each get their own fresh, independent tmux session (`wezterm-<pid>`) instead of also attaching to `main` — otherwise every new tab just mirrored the same session (switch a window in one, all of them jump too), which is exactly what tmux does when two clients attach to the same session name. The tab bar had to come back on for this to be usable — with every tab silently mirroring `main` before, there was nothing to distinguish, but now they're genuinely different sessions, so you need a way to see and pick between them.
 
@@ -94,7 +94,7 @@ Config: [`tmux/.config/tmux/`](tmux/.config/tmux/) (`tmux.conf` + `macos.conf` �
 - Vi-style copy mode, `y` copies straight to `pbcopy`
 - `prefix+r` reloads the config
 
-**Look — back to my original One Dark palette, status bar at the bottom.** Tried porting craftzdog's Solarized `theme.conf`/`statusline.conf` at one point, but it clashed with WezTerm's own One Dark background instead of matching it, so those two files are gone. Status bar background is `#282c34` — matched exactly to `background` in `~/.wezterm.lua` (it had drifted to `#1a1a2e`, a different dark shade, which left a visible seam between the terminal and the status bar). The green/blue accents (`#98c379`/`#61afef`) come straight from that same file's `ansi` palette, so they're guaranteed to match rather than picked separately. `macos.conf` (`reattach-to-user-namespace` for clipboard, undercurl support) is kept since that's function, not color.
+**Look — Solarized Dark, status bar at the bottom, matched exactly to WezTerm.** Went through a few iterations here: craftzdog's ported `theme.conf`/`statusline.conf` clashed with what was then a One Dark WezTerm background; reverting to a plain One Dark status bar of its own then drifted a shade off (`#1a1a2e` vs. WezTerm's `#282c34`) and still looked like a seam. Now that WezTerm itself is Solarized Dark - Patched (`#031219` background), the status bar uses that exact same background plus accent colors pulled straight from that scheme's own ANSI palette (`#738a05` green, `#2176c7` blue, `#a57706` yellow, `#c61c6f` magenta, `#475b62` muted) — same source of truth as the terminal, not picked separately, so it can't drift again. `macos.conf` (`reattach-to-user-namespace` for clipboard, undercurl support) is kept since that's function, not color.
 
 ### Requires
 
