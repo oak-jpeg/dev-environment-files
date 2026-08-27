@@ -94,7 +94,7 @@ Config: [`tmux/.config/tmux/`](tmux/.config/tmux/) (`tmux.conf` + `macos.conf` �
 - Vi-style copy mode, `y` copies straight to `pbcopy`
 - `prefix+r` reloads the config
 
-**Look — back to my original One Dark palette, status bar at the bottom.** Tried porting craftzdog's Solarized `theme.conf`/`statusline.conf` at one point, but it clashed with WezTerm's own One Dark background instead of matching it, so those two files are gone — status bar colors (`#1a1a2e`/`#98c379`/`#61afef`/etc.) now match `~/.wezterm.lua` again like they did originally. `macos.conf` (`reattach-to-user-namespace` for clipboard, undercurl support) is kept since that's function, not color.
+**Look — back to my original One Dark palette, status bar at the bottom.** Tried porting craftzdog's Solarized `theme.conf`/`statusline.conf` at one point, but it clashed with WezTerm's own One Dark background instead of matching it, so those two files are gone. Status bar background is `#282c34` — matched exactly to `background` in `~/.wezterm.lua` (it had drifted to `#1a1a2e`, a different dark shade, which left a visible seam between the terminal and the status bar). The green/blue accents (`#98c379`/`#61afef`) come straight from that same file's `ansi` palette, so they're guaranteed to match rather than picked separately. `macos.conf` (`reattach-to-user-namespace` for clipboard, undercurl support) is kept since that's function, not color.
 
 ### Requires
 
