@@ -54,6 +54,7 @@ Fish config: [`fish/.config/fish`](fish/.config/fish)
 - Aliases: `g` → git, `c` → claude, `claude-yolo` → `claude --dangerously-skip-permissions`, `vim` → `nvim`
 - `Ctrl-g` opens `lazygit` directly (unchanged from before — my own binding, not his)
 - Aliases to start/stop local Postgres, MongoDB, and MySQL services via `brew services`
+- [fastfetch](https://github.com/fastfetch-cli/fastfetch) — system info banner on every new interactive shell, curated to a shorter module list (`os`/`host`/`kernel`/`uptime`/`packages`/`shell`/`terminal`/`cpu`/`memory`/`colors`) with key/title colors set to the Solarized accent colors used elsewhere ([`fastfetch/.config/fastfetch/config.jsonc`](fastfetch/.config/fastfetch/config.jsonc))
 
 Not ported: craftzdog's `mise` (would double up with pyenv/nvm.fish, which are already wired and tested here) and his fish `theme_*` variables (leftover config for a different, pre-Tide fish theme — inert either way).
 
@@ -170,6 +171,7 @@ dev-environment-files/
 ├── nvim/.config/nvim/                    (full LazyVim config)
 ├── wezterm/.wezterm.lua                  (default terminal)
 ├── lazygit/.config/lazygit/config.yml
+├── fastfetch/.config/fastfetch/config.jsonc
 ├── git/.gitconfig, .config/git/ignore, .config/git/delta.gitconfig
 ├── Brewfile
 └── install.sh

@@ -28,6 +28,9 @@ if status is-interactive
     # (fish runs path_helper as a login shell) — no brew shellenv needed here,
     # and adding it would re-prepend it in front of nvm.fish's active Node.
 
+    # ---- system info banner ----
+    command -q fastfetch && fastfetch
+
     # ---- pyenv ----
     set -gx PYENV_ROOT $HOME/.pyenv
     fish_add_path $PYENV_ROOT/bin
