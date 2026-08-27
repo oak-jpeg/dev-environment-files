@@ -55,7 +55,15 @@ config.colors = {
 }
 
 -- ===== Shell: เปิด tmux อัตโนมัติ =====
-config.default_prog = { "/bin/zsh", "-l", "-c", "tmux new-session -A -s main" }
+-- หน้าต่างแรกตอนเปิด WezTerm ใหม่ทั้งโปรแกรม -> attach เข้า session "main" เดิม (ค้างข้ามการปิดเปิดแอพ)
+wezterm.on("gui-startup", function(cmd)
+	wezterm.mux.spawn_window(cmd or {
+		args = { "/bin/zsh", "-l", "-c", "tmux new-session -A -s main" },
+	})
+end)
+
+-- Tab/Window ใหม่ที่เปิดเพิ่มทีหลัง (Cmd+T, Cmd+N) -> session ของตัวเองแยกอิสระทุกครั้ง
+config.default_prog = { "/bin/zsh", "-l", "-c", "tmux new-session -s wezterm-$$" }
 
 -- ===== Performance =====
 config.max_fps = 120

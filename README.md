@@ -26,7 +26,9 @@ stow --target="$HOME" fish
 
 Config: [`wezterm/.wezterm.lua`](wezterm/.wezterm.lua)
 
-One Dark colors, `JetBrainsMono NF` font, tab bar disabled in favor of tmux's status bar, `Cmd+Enter` toggles fullscreen, `Cmd+W` closes the current pane. Opens straight into a tmux session on launch.
+One Dark colors, `JetBrainsMono NF` font, tab bar disabled in favor of tmux's status bar, `Cmd+Enter` toggles fullscreen, `Cmd+W` closes the current pane.
+
+Tmux session handling: the **first window** when WezTerm itself launches (via a `gui-startup` handler) attaches to the persistent `main` session — same one every time, survives quitting and reopening WezTerm. **New tabs/windows opened afterward** (`Cmd+T`, `Cmd+N`) each get their own fresh, independent tmux session (`wezterm-<pid>`) instead of also attaching to `main` — otherwise every new tab just mirrored the same session (switch a window in one, all of them jump too), which is exactly what tmux does when two clients attach to the same session name.
 
 Ghostty and Alacritty were both tried at different points (see git history) but have been removed — sticking with WezTerm as the one terminal to configure and keep working.
 
