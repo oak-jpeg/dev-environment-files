@@ -1,6 +1,6 @@
 # My Dev Environment Files 🚀
 
-Personal macOS dev environment configs — originally inspired by [josean-dev/dev-environment-files](https://github.com/josean-dev/dev-environment-files), now largely restyled after [craftzdog/dotfiles](https://github.com/craftzdog/dotfiles) (Solarized everywhere, fish+Tide, LazyVim). Managed with [GNU Stow](https://www.gnu.org/software/stow/).
+Personal macOS dev environment configs — originally inspired by [josean-dev/dev-environment-files](https://github.com/josean-dev/dev-environment-files), then partly restyled after [craftzdog/dotfiles](https://github.com/craftzdog/dotfiles) (fish+Tide, LazyVim; tmux stayed on its own original One Dark look — see the Tmux section). Managed with [GNU Stow](https://www.gnu.org/software/stow/).
 
 **Note:** these are tuned for my own machine and workflow. Feel free to borrow ideas, but read before blindly running anything.
 
@@ -82,7 +82,7 @@ chsh -s $(which fish)
 
 ## Tmux
 
-Config: [`tmux/.config/tmux/`](tmux/.config/tmux/) (`tmux.conf` + `theme.conf` + `statusline.conf` + `macos.conf`, following craftzdog's file split — tmux picks this up automatically via its XDG config path since there's no `~/.tmux.conf` anymore)
+Config: [`tmux/.config/tmux/`](tmux/.config/tmux/) (`tmux.conf` + `macos.conf` — tmux picks this up automatically via its XDG config path since there's no `~/.tmux.conf` anymore)
 
 **Keybindings — untouched, still mine** (`tmux.conf`):
 
@@ -94,7 +94,7 @@ Config: [`tmux/.config/tmux/`](tmux/.config/tmux/) (`tmux.conf` + `theme.conf` +
 - Vi-style copy mode, `y` copies straight to `pbcopy`
 - `prefix+r` reloads the config
 
-**Look — ported from craftzdog** (`theme.conf` + `statusline.conf` + `macos.conf`): Solarized color scheme (256-color base + true-color status line), `reattach-to-user-namespace` for clipboard, undercurl support. His own keybindings from `utility.conf`/`macos.conf` (`Ctrl-t` prefix, `tmux-pain-control`, `bind o`/`bind -r e`, the `lazygit`-as-popup binding) were **not** ported — those are shortkeys, and I already have my own equivalents (Claude popup above; lazygit opens via `Ctrl-g` in the shell instead). `escape-time`/`default-terminal` were also left as my existing values (tuned for Neovim responsiveness) rather than his, since those are performance settings, not "style."
+**Look — back to my original One Dark palette, status bar at the bottom.** Tried porting craftzdog's Solarized `theme.conf`/`statusline.conf` at one point, but it clashed with WezTerm's own One Dark background instead of matching it, so those two files are gone — status bar colors (`#1a1a2e`/`#98c379`/`#61afef`/etc.) now match `~/.wezterm.lua` again like they did originally. `macos.conf` (`reattach-to-user-namespace` for clipboard, undercurl support) is kept since that's function, not color.
 
 ### Requires
 
@@ -166,7 +166,7 @@ Each top-level directory is a Stow "package" mirroring the `$HOME` paths it shou
 dev-environment-files/
 ├── fish/.config/fish/                    (installed, not default — open Tide bug, see above)
 ├── zsh/.zshrc, .zprofile, .p10k.zsh      (current default)
-├── tmux/.config/tmux/                    (tmux.conf, theme.conf, statusline.conf, macos.conf)
+├── tmux/.config/tmux/                    (tmux.conf, macos.conf)
 ├── nvim/.config/nvim/                    (full LazyVim config)
 ├── wezterm/.wezterm.lua                  (default terminal)
 ├── lazygit/.config/lazygit/config.yml
