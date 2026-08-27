@@ -72,7 +72,9 @@ Whoever picks this back up next: the leftover `_tide_repaint` patch and universa
 
 Config: [`zsh/.zshrc`](zsh/.zshrc), [`zsh/.zprofile`](zsh/.zprofile), [`zsh/.p10k.zsh`](zsh/.p10k.zsh) — otherwise unchanged from before this whole fish/Tide detour. `chsh -s $(which zsh)` to switch back if you're on fish.
 
-Since **this is the shell tmux actually spawns new panes/windows with** (fish isn't the login shell yet — see the open issue above), the fastfetch banner call (see the Shell setup section above) is duplicated here too, at the very end of the file (after `source ~/.p10k.zsh`, so it doesn't trip Powerlevel10k's instant-prompt console-output check). Forgetting this the first time round meant `Ctrl-a c` (tmux new window) showed nothing, since it spawns zsh, not fish.
+Since **this is the shell tmux actually spawns new panes/windows with** (fish isn't the login shell yet — see the open issue above), the fastfetch banner call (see the Shell setup section above) is duplicated here too, at the very end of the file. `Ctrl-a c` (tmux new window) showed nothing the first time this was added, since it spawns zsh, not fish.
+
+That in turn tripped a *different* problem: Powerlevel10k's instant-prompt feature caches and instantly replays the previous prompt render, then watches the **entire** rest of `.zshrc`'s execution for any stray console output (not just before `~/.p10k.zsh` is sourced — moving the fastfetch call below that line didn't help). fastfetch printing during init got flagged as exactly that, with a warning on every new shell. Fixed by disabling instant prompt outright (`typeset -g POWERLEVEL9K_INSTANT_PROMPT=off`, set before the instant-prompt block at the top of the file) rather than the alternatives Powerlevel10k itself suggests (`=quiet`, which keeps a visual "jump" as the prompt readjusts after init, or just leaving the warning on every launch) — costs a bit of shell startup speed, but it's the only option with neither a warning nor a jump.
 
 ### Switching your login shell
 
