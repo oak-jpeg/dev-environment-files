@@ -37,6 +37,14 @@ if [ -n "$FISH_BIN" ]; then
   echo "        chsh -s $FISH_BIN"
 fi
 
+echo "==> Bootstrapping TPM + catppuccin/tmux (status bar plugin)"
+if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
+  git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
+fi
+if [ ! -d "$HOME/.tmux/plugins/tmux" ]; then
+  git clone -b v2.3.0 --single-branch --recursive https://github.com/catppuccin/tmux.git "$HOME/.tmux/plugins/tmux"
+fi
+
 echo "==> Symlinking dotfiles with GNU Stow"
 for pkg in "${STOW_PACKAGES[@]}"; do
   stow --target="$HOME" --restow --adopt "$pkg"

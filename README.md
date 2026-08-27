@@ -99,14 +99,22 @@ Config: [`tmux/.config/tmux/`](tmux/.config/tmux/) (`tmux.conf` + `macos.conf` �
 - Vi-style copy mode, `y` copies straight to `pbcopy`
 - `prefix+r` reloads the config
 
-**Look — Solarized Dark, status bar at the bottom, matched exactly to WezTerm.** Went through a few iterations here: craftzdog's ported `theme.conf`/`statusline.conf` clashed with what was then a One Dark WezTerm background; a plain One Dark status bar of its own then drifted a shade off (`#1a1a2e` vs. WezTerm's `#282c34`) and still looked like a seam. Now that WezTerm itself is Solarized Dark - Patched (`#031219` background, transparent + blurred so the desktop wallpaper shows through), the status bar uses that same background plus accents from that scheme's own ANSI palette (`#738a05` green, `#2176c7` blue, `#a57706` yellow) — same source of truth as the terminal, not picked separately. Because the background is a moving, semi-transparent wallpaper rather than a flat color, plain colored *text* wasn't reliably legible against it, so the session name, active window, and clock are drawn as solid filled blocks instead — readable no matter what's behind the window. First pass used dark navy (`#031219`) text on those blocks, which still wasn't legible enough against the medium-brightness green/blue fills, so the block text is now bright cream (`#fcf4dc`, Solarized's `base3`) instead. The less critical inactive window list stays as plain `#839496` (Solarized `base0`) text. `macos.conf` (`reattach-to-user-namespace` for clipboard, undercurl support) is kept since that's function, not color.
+**Look — [catppuccin/tmux](https://github.com/catppuccin/tmux) via [TPM](https://github.com/tmux-plugins/tpm), rounded pills, ported from [omerxx/dotfiles](https://github.com/omerxx/dotfiles).** Everything before this was a hand-written status bar (colored `#[fg=...bg=...]` strings) that went through several rounds of real bugs — a Solarized palette that clashed with WezTerm's then-One-Dark background, a background shade that drifted a step out of sync with WezTerm's, block text with too little contrast against its own fill color, and a background-reset bug where one block's color bled into whatever followed it. Hand-crafting that string is fragile — replaced the whole thing with an actual plugin instead of continuing to patch it by hand:
 
-One more bug from that same block-based approach: `window-status-current-format` and the clock in `status-right` set a colored `bg=` for their block but never explicitly reset it back to `#031219` afterward — tmux carries a segment's background into whatever comes right after it if the next segment doesn't set its own, so the active window's blue and the clock's orange were each bleeding into the text/segment that followed instead of staying a clean, contained pill. Both now explicitly reset `bg=#031219` right after their block closes.
+- Flavor `mocha`, window style `rounded` (`@catppuccin_window_status_style`) — gives the rounded pill/powerline look per window, with the active one in mauve
+- `status-left`/`status-right` use the plugin's built-in `session` and `date_time` modules (`#{E:@catppuccin_status_session}` / `#{E:@catppuccin_status_date_time}`) — these **must** be set after `run "~/.tmux/plugins/tmux/catppuccin.tmux"` runs, since that's what defines the `@catppuccin_status_*`/`@thm_*` variables they reference
+- `macos.conf` (`reattach-to-user-namespace` for clipboard, undercurl support) is unaffected — that's function, not color
+
+### TPM setup
+
+`install.sh` clones both TPM and `catppuccin/tmux` directly (not via TPM's own headless installer — it expects an already-running tmux server to query, which doesn't exist yet on a fresh machine, and our config's `run "~/.tmux/plugins/tmux/catppuccin.tmux"` line would itself error on load if that file isn't there first). To add more plugins later, list them with `set -g @plugin '...'` above the `run "~/.tmux/plugins/tpm/tpm"` line at the bottom of `tmux.conf`, then press `prefix + I` inside a live tmux session to fetch them.
 
 ### Requires
 
 - [tmux](https://github.com/tmux/tmux) ≥ 3.1 (for XDG config path support)
 - [reattach-to-user-namespace](https://github.com/ChrisJohnsen/tmux-MacOSX-pasteboard) (in the Brewfile)
+- [TPM](https://github.com/tmux-plugins/tpm) + [catppuccin/tmux](https://github.com/catppuccin/tmux) — cloned by `install.sh`, not tracked in this repo (see the TPM setup note above)
+- A Nerd Font in the terminal, for the window-style icons
 
 ## Neovim
 
