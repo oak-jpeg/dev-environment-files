@@ -46,6 +46,15 @@ if [ -n "$FISH_BIN" ]; then
   "$FISH_BIN" -c 'fisher update'
 fi
 
+echo "==> Patching known Tide bug (blank prompt on first render, unmerged upstream fix: https://github.com/IlanCosman/tide/pull/666)"
+TIDE_PROMPT_FN="$HOME/.config/fish/functions/fish_prompt.fish"
+if [ -f "$TIDE_PROMPT_FN" ] && ! grep -q "Clear any repaint flag triggered by the set -U above" "$TIDE_PROMPT_FN"; then
+  perl -0pi -e 's/(set -U \$prompt_var # Set var here so if we erase \$prompt_var, bg job won.t set a uvar\n)/$1set -e _tide_repaint # Clear any repaint flag triggered by the set -U above\n/' "$TIDE_PROMPT_FN"
+fi
+if [ -n "$FISH_BIN" ]; then
+  "$FISH_BIN" -c 'for v in (set -Un | string match -r "^_tide_prompt_.*|^_tide_repaint"); set -e $v; end' || true
+fi
+
 echo "==> Bootstrapping Neovim plugins (lazy.nvim) and LSP/formatter tools (mason)"
 nvim --headless "+Lazy! sync" +qa || true
 nvim --headless "+Lazy load mason.nvim" \

@@ -53,6 +53,8 @@ Default shell: [Fish](https://fishshell.com/) — config: [`fish/.config/fish`](
 
 Not ported: craftzdog's `mise` (would double up with pyenv/nvm.fish, which are already wired and tested here) and his fish `theme_*` variables (leftover config for a different, pre-Tide fish theme — inert either way).
 
+**Known upstream bug — Tide can render a permanently blank prompt.** `set -U $prompt_var` in Tide's `fish_prompt.fish` spuriously fires the `--on-variable` repaint handler on the very first render, which makes the async job that actually computes the prompt content think a repaint is already pending and skip itself — leaving the prompt empty forever (not just on the first frame). This is a real, currently-unmerged upstream issue ([ilancosman/tide#666](https://github.com/IlanCosman/tide/pull/666)); `install.sh` patches it automatically right after `fisher update` (which would otherwise silently re-introduce it by overwriting the fix with the vendored file). If you ever run `fisher update` by hand and the prompt goes blank again, re-run that step from `install.sh` or just re-apply the one-line fix from that PR to `~/.config/fish/functions/fish_prompt.fish`.
+
 Legacy config kept around: [Zsh + Oh My Zsh + Powerlevel10k](zsh/.zshrc) ([`zsh/.zprofile`](zsh/.zprofile), [`zsh/.p10k.zsh`](zsh/.p10k.zsh)). Still installed and usable (`chsh -s $(which zsh)`), just no longer the default.
 
 ### Switching your login shell
