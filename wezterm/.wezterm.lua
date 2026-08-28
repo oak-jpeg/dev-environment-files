@@ -3,7 +3,7 @@ local config = wezterm.config_builder()
 
 -- ===== Font (ใช้ฟอนต์เดิมที่มีอยู่) =====
 config.font = wezterm.font("JetBrainsMono NF")
-config.font_size = 13.0
+config.font_size = 12
 config.harfbuzz_features = { "calt=1", "clig=1", "liga=1" }
 
 -- ===== Window =====
