@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash ~/.tmux/claude-on-busy.sh"
+            "command": "bash ~/.claude/hooks/claude-on-busy.sh"
           }
         ]
       },
@@ -15,7 +15,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash ~/.tmux/claude-pretool-check.sh"
+            "command": "bash ~/.claude/hooks/claude-pretool-check.sh"
           }
         ]
       }
@@ -25,7 +25,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash ~/.tmux/claude-on-waiting.sh"
+            "command": "bash ~/.claude/hooks/claude-on-waiting.sh"
           }
         ]
       }
@@ -35,7 +35,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash ~/.tmux/claude-on-idle.sh"
+            "command": "bash ~/.claude/hooks/claude-on-idle.sh"
           }
         ]
       }
@@ -45,7 +45,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash ~/.tmux/claude-on-idle.sh"
+            "command": "bash ~/.claude/hooks/claude-on-idle.sh"
           }
         ]
       }
@@ -53,6 +53,6 @@
   },
   "statusLine": {
     "type": "command",
-    "command": "bash ~/.tmux/claude-statusline.sh"
+    "command": "bash ~/.claude/hooks/claude-statusline.sh"
   }
 }

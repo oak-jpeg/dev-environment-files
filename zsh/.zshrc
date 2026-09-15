@@ -29,9 +29,6 @@ source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 export PATH="$HOME/.local/bin:$PATH"
 
-bindkey -s "^g" "lazygit
-"
-
 # ---- SHORTKEY SERVICES  ----
 alias pgstart='brew services start postgresql@16'
 alias pgstop='brew services stop postgresql@16'
@@ -39,6 +36,3 @@ alias mongostart='brew services start mongodb-community@8.0'
 alias mongostop='brew services stop mongodb-community@8.0'
 alias mysqlstart='brew services start mysql'
 alias mysqlstop='brew services stop mysql'
-
-# ---- system info banner ----
-command -v fastfetch >/dev/null && fastfetch

@@ -9,7 +9,7 @@
 [pager]
 	branch = false
 [core]
-	editor = nvim
+	editor = vi
 	ignorecase = false
 	pager = delta
 [push]
@@ -21,13 +21,6 @@
 	interactive = auto
 	grep = auto
 	ui = auto
-[diff]
-	tool = nvimdiff
-[difftool "nvimdiff"]
-	cmd = nvim -d \"$LOCAL\" \"$REMOTE\"
-[mergetool "nvimdiff"]
-	cmd = nvim -d \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
 [ghq]
 	root = ~/Developments/.ghq
 [pull]

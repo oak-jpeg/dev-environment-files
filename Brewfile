@@ -26,12 +26,8 @@ brew "bzip2"
 brew "curl"
 # Modern, maintained replacement for ls
 brew "eza"
-# Like neofetch, but much faster because written mostly in C
-brew "fastfetch"
 # Simple, fast and user-friendly alternative to find
 brew "fd"
-# User-friendly command-line shell for UNIX-like operating systems
-brew "fish"
 # Command-line fuzzy finder written in Go
 brew "fzf"
 # GitHub command-line tool
@@ -44,8 +40,6 @@ brew "git-delta"
 brew "jpeg"
 # Modern load testing tool, using Go and JavaScript
 brew "k6"
-# Simple terminal UI for git commands
-brew "lazygit"
 # Library for command-line editing
 brew "readline"
 # GNOME XML library
@@ -58,8 +52,6 @@ brew "luarocks"
 brew "node"
 # Open source relational database management system
 brew "mysql"
-# Ambitious Vim-fork focused on extensibility and agility
-brew "neovim"
 # Manage multiple Node.js versions
 brew "nvm"
 # Brew & manage PHP versions in pure PHP at HOME
@@ -68,16 +60,16 @@ brew "phpbrew"
 brew "pkgconf"
 # Object-relational database system
 brew "postgresql@16", link: true
-# Theme for zsh
-brew "powerlevel10k"
 # Python version management
 brew "pyenv"
 # Generate C-based recognizers from regular expressions
 brew "re2c"
-# Reattach process (e.g., tmux) to background
-brew "reattach-to-user-namespace"
 # Search tool like grep and The Silver Searcher
 brew "ripgrep"
+# Shell history sync and search
+brew "atuin"
+# Cross-shell prompt
+brew "starship"
 # Organize software neatly under a single directory tree (e.g. /usr/local)
 brew "stow"
 # Tool Command Language
