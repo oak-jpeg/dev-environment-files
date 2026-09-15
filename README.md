@@ -1,10 +1,10 @@
 # My Dev Environment Files 🚀
 
-Personal macOS dev environment configs — originally inspired by [josean-dev/dev-environment-files](https://github.com/josean-dev/dev-environment-files), restyled after [craftzdog/dotfiles](https://github.com/craftzdog/dotfiles) (fish+Tide, LazyVim era), and now largely rebuilt around [mehd-io/dotfiles](https://github.com/mehd-io/dotfiles) for the terminal/tmux/window-management layer (Ghostty, tmux + Claude Code integration, AeroSpace, Sketchybar, Atuin, Borders — Catppuccin Mocha theme throughout, replacing the earlier Solarized look). Managed with [GNU Stow](https://www.gnu.org/software/stow/).
+Personal macOS dev environment configs — terminal (Ghostty), shell (zsh + Starship + Atuin, with fish as a secondary option), tmux with Claude Code integration, window management (AeroSpace + Sketchybar + Borders), and editor (Neovim via LazyVim). Catppuccin Mocha theme throughout. Managed with [GNU Stow](https://www.gnu.org/software/stow/).
 
 **Note:** these are tuned for my own machine and workflow. Feel free to borrow ideas, but read before blindly running anything.
 
-**On keybindings:** visuals/tools are frequently ported from other people's setups, but tmux's prefix and most of its custom bindings, lazygit's commit shortcut, and nvim's own keymaps are kept as my own where noted in each section below.
+**On keybindings:** most tool defaults and visual themes are used as-is, but tmux's prefix and most of its custom bindings, lazygit's commit shortcut, and nvim's own keymaps are kept as my own where noted in each section below.
 
 ## Quick Start
 
@@ -91,11 +91,11 @@ chsh -s $(which fish)
 
 Config: [`tmux/.tmux.conf`](tmux/.tmux.conf) (base, do not edit directly) + [`tmux/.tmux.conf.local`](tmux/.tmux.conf.local) (all overrides live here) + helper scripts in [`tmux/.tmux/`](tmux/.tmux/)
 
-Base is [gpakosz/.tmux](https://github.com/gpakosz/.tmux) — a themable tmux config framework — instead of a hand-rolled `tmux.conf`. `.tmux.conf.local` overrides its `tmux_conf_theme_*` variables for a Catppuccin Mocha look (focused-pane border, status line, window tabs) and adds everything custom on top.
+Base is [.tmux](https://github.com/gpakosz/.tmux) — a themable tmux config framework — instead of a hand-rolled `tmux.conf`. `.tmux.conf.local` overrides its `tmux_conf_theme_*` variables for a Catppuccin Mocha look (focused-pane border, status line, window tabs) and adds everything custom on top.
 
 **Keybindings:**
 
-- Prefix remapped `Ctrl-b` → `Ctrl-a` (both of gpakosz's default prefixes are unbound first, then `Ctrl-a` set explicitly)
+- Prefix remapped `Ctrl-b` → `Ctrl-a` (both default prefixes are unbound first, then `Ctrl-a` set explicitly)
 - `h`/`j`/`k`/`l` (no prefix needed via the framework's pane-nav bindings) to move between panes, `|`/`-` to split (vertical/horizontal, mnemonic-matched), `Shift+H/J/K/L` to resize
 - `prefix+n` toggles a nvim pane open/closed (`toggle-nvim.sh`)
 - `prefix+C` / `prefix+V` / `prefix+H` — new window / vertical split / horizontal split, each running [Claude Code](https://github.com/anthropics/claude-code) directly
@@ -105,12 +105,12 @@ Base is [gpakosz/.tmux](https://github.com/gpakosz/.tmux) — a themable tmux co
 - `prefix+L` — toggle a bottom log pane (`log-pane.sh`)
 - `prefix+S` — fuzzy session switcher via `fzf` in a popup
 - `prefix+q` — kill the current window, with a confirm prompt
-- `prefix+r` — reload config (from the gpakosz base)
+- `prefix+r` — reload config (from the base framework)
 - Windows auto-rename to the current folder's basename; a `pane-exited` hook (`tmux-cleanup.sh`) kills stray processes/devcontainers tied to a pane once its last pane for that repo closes
 - Pane border info bar (`pane-border-status top`) shows live per-pane info via `pane-info.sh`; the status bar itself refreshes every second so Claude's busy/idle/waiting state (`claude-on-busy.sh`, `claude-on-idle.sh`, `claude-on-waiting.sh`, `claude-statusline.sh`) shows up close to live
 - Mouse mode on
 
-**Look:** [catppuccin/tmux](https://github.com/catppuccin/tmux) via [TPM](https://github.com/tmux-plugins/tpm), flavor `mocha`, rounded window tabs, minimal status line (nothing on the left; app/directory/session on the right) — everything else (pane borders, prefix binding, custom key tables) stays gpakosz's own theming. The catppuccin plugin's status-line variables are re-applied on a `client-attached` hook, since gpakosz's own `_apply_theme` runs after the config file loads and would otherwise silently stomp a plain `status-left`/`status-right` set earlier in the file. `tmux-resurrect` + `tmux-continuum` are also loaded, with `@continuum-restore 'on'` so sessions survive a reboot.
+**Look:** [catppuccin/tmux](https://github.com/catppuccin/tmux) via [TPM](https://github.com/tmux-plugins/tpm), flavor `mocha`, rounded window tabs, minimal status line (nothing on the left; app/directory/session on the right) — everything else (pane borders, prefix binding, custom key tables) stays the base framework's own theming. The catppuccin plugin's status-line variables are re-applied on a `client-attached` hook, since the base framework's own `_apply_theme` runs after the config file loads and would otherwise silently stomp a plain `status-left`/`status-right` set earlier in the file. `tmux-resurrect` + `tmux-continuum` are also loaded, with `@continuum-restore 'on'` so sessions survive a reboot.
 
 ### TPM setup
 
@@ -142,7 +142,7 @@ Three pieces that work together and all run as background services/apps:
 
 Config: [`nvim/.config/nvim`](nvim/.config/nvim) — the stock [LazyVim starter](https://github.com/LazyVim/starter) template, largely unmodified, plus one custom plugin spec: [`lua/plugins/git-review.lua`](nvim/.config/nvim/lua/plugins/git-review.lua) adds [codediff.nvim](https://github.com/esmuellert/codediff.nvim) (`<leader>gd` → `:CodeDiff`). `lua/plugins/example.lua` is the starter's own inert example spec (guarded by `if true then return {} end`) — kept as reference, not loaded.
 
-This replaces an earlier, more heavily customized config ported from [craftzdog/dotfiles](https://github.com/craftzdog/dotfiles) (custom `solarized-osaka` colorscheme, hand-written LSP/util modules, its own keymaps) — that's been dropped in favor of the plain starter defaults (colorscheme, keymaps, options, autocmds all stock LazyVim now). If you want that older look/behavior back, it's in git history.
+This replaces an earlier, more heavily customized config (custom `solarized-osaka` colorscheme, hand-written LSP/util modules, its own keymaps) — that's been dropped in favor of the plain starter defaults (colorscheme, keymaps, options, autocmds all stock LazyVim now). If you want that older look/behavior back, it's in git history.
 
 ### Requires
 
