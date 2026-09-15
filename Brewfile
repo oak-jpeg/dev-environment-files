@@ -74,8 +74,6 @@ brew "starship"
 brew "stow"
 # Tool Command Language
 brew "tcl-tk@8"
-# Terminal multiplexer
-brew "tmux"
 # General-purpose lossless data-compression library
 brew "zlib"
 # Shell extension to navigate your filesystem faster
