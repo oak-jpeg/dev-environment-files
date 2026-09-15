@@ -96,8 +96,6 @@ brew "zsh-syntax-highlighting"
 brew "mongodb/brew/mongodb-community@8.0"
 cask "font-jetbrains-mono-nerd-font"
 cask "font-meslo-lg-nerd-font"
-# GPU-accelerated cross-platform terminal emulator and multiplexer
-cask "wezterm"
 vscode "aaron-bond.better-comments"
 vscode "anthropic.claude-code"
 vscode "bmewburn.vscode-intelephense-client"
